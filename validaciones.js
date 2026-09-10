@@ -80,36 +80,38 @@ region.addEventListener("change", function() {
 
 // EVENTO DE ENVÍO DEL FORMULARIO
 
-formulario.addEventListener("submit", function(event) {
+if (formulario) {
 
-    // Evita que el formulario se envíe automáticamente
+    formulario.addEventListener("submit", function(event) {
 
-    event.preventDefault();
+        // Evita que el formulario se envíe automáticamente
 
-    let formularioValido = true;
+        event.preventDefault();
+
+        let formularioValido = true;
 
 
-    // VALIDAR RUN
+        // VALIDAR RUN
 
-    const valorRun = run.value.trim();
+        const valorRun = run.value.trim();
 
-    if (valorRun === "") {
+        if (valorRun === "") {
 
-        errorRun.textContent = "El RUN es obligatorio.";
+            errorRun.textContent = "El RUN es obligatorio.";
 
-        formularioValido = false;
+            formularioValido = false;
 
-    } else if (!/^[0-9]+[0-9Kk]$/.test(valorRun)) {
+        } else if (!/^[0-9]+[0-9Kk]$/.test(valorRun)) {
 
-        errorRun.textContent = "El RUN debe contener solo números y K, sin puntos ni guion.";
+            errorRun.textContent = "El RUN debe contener solo números y K, sin puntos ni guion.";
 
-        formularioValido = false;
+            formularioValido = false;
 
-    } else {
+        } else {
 
-        errorRun.textContent = "";
+            errorRun.textContent = "";
 
-    }
+        }
 
 
     // VALIDAR CORREO
@@ -195,5 +197,19 @@ formulario.addEventListener("submit", function(event) {
         comuna.appendChild(opcion);
 
     }
+    //CARRITO - LOCALSTORAGE
+
+    const botonesCarrito = document.querySelectorAll(".btn-agregar");
+
+    botonesCarrito.forEach(function(boton){
+
+            const nombre = boton.dataset-nombre;
+            const precio = Number(boton.dataset.precio);
+
+            console.log("Producto:", nombre);
+            console.log("Precio:", precio);
+
+    });
 
 });
+}
