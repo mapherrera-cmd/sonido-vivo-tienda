@@ -8,6 +8,14 @@
 </head>
 <body>
 
+    <!-- PROTECCIÓN DE ACCESO: si no hay sesión de admin, expulsa antes de mostrar nada -->
+    <script>
+        const usuarioSesion = JSON.parse(localStorage.getItem("usuarioActivo"));
+        if (!usuarioSesion || usuarioSesion.rol !== "admin") {
+            window.location.href = "login.html";
+        }
+    </script>
+
     <!-- HEADER DEL ADMIN: Es distinto al de los clientes -->
     <header style="background-color: #112233; color: white;">
         <div class="logo">
@@ -16,7 +24,7 @@
         <nav>
             <a href="admin-productos.html" style="color: #a8dadc;">📦 Mis Productos</a>
             <a href="admin-usuarios.html" style="color: white;">👥 Usuarios</a>
-            <a href="index.html" style="color: #e63946;">Cerrar Sesión</a>
+            <a href="#" onclick="cerrarSesion()" style="color: #e63946;">Cerrar Sesión</a>
         </nav>
     </header>
 
@@ -64,5 +72,7 @@
         </table>
     </main>
 
+    <script src="validaciones.js"></script>
+    <script src="sesion.js"></script>
 </body>
 </html>

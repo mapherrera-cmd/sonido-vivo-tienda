@@ -1,243 +1,588 @@
-/* Reseteo general */
+/* =====================================================
+   SONIDO VIVO - ESTILOS GENERALES
+===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* --- ESTILOS DEL HEADER --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f8fc;
+    color: #1d2b3a;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #e9ecef;
+    padding: 18px 5%;
+    background: #ffffff;
+    border-bottom: 1px solid #dce6f0;
+    box-shadow: 0 3px 15px rgba(13, 71, 161, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+    color: #0d47a1;
+    white-space: nowrap;
 }
 
 header h1 {
-    color: #e63946; /* Un rojo llamativo para el logo */
+    color: #0d47a1;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 nav a {
-    margin: 0 15px;
+    margin: 0 5px;
+    padding: 9px 12px;
     text-decoration: none;
-    color: #333;
+    color: #26384a;
     font-weight: 600;
-    transition: color 0.3s;
+    border-radius: 7px;
+    transition: all 0.3s ease;
 }
 
 nav a:hover {
-    color: #e63946;
+    color: #ffffff;
+    background: #1565c0;
 }
 
-.acceso-usuarios a {
+nav a.activo {
+    color: #ffffff;
+    background: #0d47a1;
+    font-weight: 700;
+}
+
+.acciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acciones a {
     text-decoration: none;
-    color: #457b9d;
+    padding: 9px 15px;
+    border-radius: 7px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
+    transition: 0.3s;
 }
 
-/* --- ESTILOS DEL BANNER PRINCIPAL --- */
+.acciones a:first-child {
+    color: #0d47a1;
+    border: 1px solid #0d47a1;
+}
+
+.acciones a:first-child:hover {
+    background: #0d47a1;
+    color: white;
+}
+
+.acciones a:last-child {
+    color: white;
+    background: #1565c0;
+}
+
+.acciones a:last-child:hover {
+    background: #0d47a1;
+}
+
+
+/* =====================================================
+   BANNER PRINCIPAL
+===================================================== */
+
 .banner-principal {
+    min-height: 480px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 50px 40px;
-    background-color: #1d3557;
+    gap: 50px;
+    padding: 70px 7%;
+    background: linear-gradient(
+        135deg,
+        #071d3a,
+        #0d47a1,
+        #1976d2
+    );
     color: white;
 }
 
 .texto-banner {
-    width: 45%;
+    width: 48%;
 }
 
 .texto-banner h2 {
-    font-size: 36px;
-    margin-bottom: 15px;
-    color: #f1faee;
+    font-size: 48px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: white;
 }
 
 .texto-banner p {
-    font-size: 18px;
-    margin-bottom: 25px;
-    line-height: 1.6;
-    color: #a8dadc;
+    font-size: 19px;
+    margin-bottom: 30px;
+    line-height: 1.7;
+    color: #e3f2fd;
 }
 
-.texto-banner button {
-    padding: 12px 24px;
-    background-color: #e63946;
-    color: white;
+.texto-banner button,
+.btn-principal {
+    display: inline-block;
+    padding: 14px 27px;
+    background: #ffffff;
+    color: #0d47a1;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.texto-banner button:hover,
+.btn-principal:hover {
+    transform: translateY(-3px);
+    background: #e3f2fd;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .imagen-banner {
-    width: 50%;
+    width: 48%;
 }
 
-/* Ajuste para la imagen de la tienda */
 .imagen-banner img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* --- ESTILOS DE LOS PRODUCTOS --- */
+
+/* =====================================================
+   LISTADO PRODUCTOS - INICIO
+===================================================== */
+
 .listado-productos {
-    padding: 50px 40px;
-    background-color: #f1faee;
+    padding: 70px 6%;
+    background: #f4f8fc;
 }
 
 .listado-productos h3 {
     text-align: center;
-    font-size: 28px;
-    margin-bottom: 40px;
-    color: #1d3557;
+    font-size: 34px;
+    margin-bottom: 45px;
+    color: #0d47a1;
 }
 
 .grilla-productos {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
 }
 
 .producto {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    width: 250px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: white;
+    border: none;
+    border-radius: 15px;
+    padding: 0 0 22px;
+    text-align: left;
+    width: auto;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(13, 71, 161, 0.10);
+    transition: all 0.3s ease;
 }
 
-/* Ajuste clave para que las imágenes de productos se vean ordenadas y del mismo tamaño */
+.producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 30px rgba(13, 71, 161, 0.18);
+}
+
 .producto img {
+    display: block;
     width: 100%;
-    height: 200px;
-    object-fit: contain; /* Esto hace que se adapten al espacio sin deformarse y respetando su fondo */
-    margin-bottom: 15px;
+    height: 230px;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 15px;
+    margin-bottom: 0;
 }
 
 .producto h4 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
+    padding: 18px 20px 5px;
+    font-size: 19px;
+    color: #1d2b3a;
 }
 
 .producto .atributos {
-    font-size: 13px;
-    color: #666;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #68798a;
     margin-bottom: 10px;
-    height: 40px; /* Mantiene la misma altura de texto para todas las tarjetas */
+    height: auto;
 }
 
 .producto .precio {
-    font-size: 22px;
-    font-weight: bold;
-    color: #2a9d8f;
+    padding: 0 20px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #0d47a1;
     margin-bottom: 15px;
+}
+
+.producto .btn-agregar {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+}
+
+
+/* =====================================================
+   PÁGINAS INTERNAS
+===================================================== */
+
+.titulo-pagina {
+    text-align: center;
+    padding: 70px 20px 45px;
+    background: linear-gradient(
+        135deg,
+        #eaf4ff,
+        #ffffff
+    );
+}
+
+.titulo-pagina h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+    color: #0d47a1;
+}
+
+.titulo-pagina p {
+    font-size: 18px;
+    color: #607080;
+}
+
+
+/* =====================================================
+   PRODUCTOS
+===================================================== */
+
+.productos-grid {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 70px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+}
+
+.productos-grid .producto {
+    padding: 0;
+}
+
+.productos-grid .producto img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    background: white;
+    padding: 20px;
+}
+
+.producto-info {
+    padding: 22px;
+}
+
+.producto-info h2 {
+    font-size: 20px;
+    color: #172b3d;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    color: #68798a;
+    line-height: 1.6;
+    min-height: 75px;
+}
+
+.productos-grid .precio {
+    padding: 0;
+    color: #0d47a1;
+    font-size: 25px;
+    font-weight: 800;
+    margin: 15px 0;
 }
 
 .btn-agregar {
     width: 100%;
-    padding: 10px;
-    background-color: #457b9d;
-    color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: 8px;
+    padding: 13px 15px;
+    background: #0d47a1;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .btn-agregar:hover {
-    background-color: #1d3557;
+    background: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(13, 71, 161, 0.25);
 }
 
-/* --- ESTILOS DEL FOOTER --- */
-footer {
-    display: flex;
-    justify-content: space-between;
+
+/* =====================================================
+   NOSOTROS
+===================================================== */
+
+.nosotros-hero {
+    width: 90%;
+    max-width: 1200px;
+    margin: 55px auto;
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
     align-items: center;
-    padding: 30px 40px;
-    background-color: #112233;
-    color: white;
+    box-shadow: 0 8px 30px rgba(13, 71, 161, 0.10);
 }
 
-.newsletter input {
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    margin-right: 10px;
+.nosotros-hero h1 {
+    color: #0d47a1;
+    font-size: 43px;
+    line-height: 1.2;
+    margin: 15px 0;
 }
 
-.newsletter button {
-    padding: 10px 15px;
-    background-color: #e63946;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.nosotros-hero p {
+    color: #596b7d;
+    font-size: 18px;
+    line-height: 1.8;
 }
-/* --- ESTILOS DE LA TABLA DEL ADMINISTRADOR --- */
-.tabla-admin {
+
+.nosotros-hero img {
     width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 350px;
+    object-fit: cover;
+    border-radius: 16px;
 }
 
-.tabla-admin th, .tabla-admin td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+.etiqueta {
+    display: inline-block;
+    color: #1565c0;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 13px;
 }
 
-.tabla-admin th {
-    background-color: #1d3557;
+
+.nosotros-contenido {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 65px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.nosotros-contenido article {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(13, 71, 161, 0.09);
+    border-top: 4px solid #1565c0;
+}
+
+.nosotros-contenido h2 {
+    color: #0d47a1;
+    margin-bottom: 15px;
+    font-size: 23px;
+}
+
+.nosotros-contenido p {
+    color: #5e7082;
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+.video-seccion {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 75px;
+    text-align: center;
+}
+
+.video-seccion h2 {
+    color: #0d47a1;
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.video-seccion p {
+    color: #68798a;
+    margin-bottom: 28px;
+}
+
+.video {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+    background: #071d3a;
+}
+
+.video iframe {
+    display: block;
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+
+/* =====================================================
+   BLOG
+===================================================== */
+
+.blog-grid {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 75px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.blog-card {
+    background: white;
+    border-radius: 17px;
+    overflow: hidden;
+    box-shadow: 0 7px 25px rgba(13, 71, 161, 0.10);
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 14px 32px rgba(13, 71, 161, 0.17);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.blog-card > div {
+    padding: 27px;
+}
+
+.categoria {
+    color: #1565c0;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.blog-card h2 {
+    color: #172b3d;
+    font-size: 22px;
+    line-height: 1.3;
+    margin: 12px 0;
+}
+
+.blog-card p {
+    color: #68798a;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.btn-secundario {
+    display: inline-block;
+    background: #0d47a1;
     color: white;
+    padding: 11px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
 }
 
-.tabla-admin tr:hover {
-    background-color: #f1faee;
+.btn-secundario:hover {
+    background: #1565c0;
+    transform: translateY(-2px);
 }
-/* --- ESTILOS PARA FORMULARIOS (Registro y Login) --- */
+
+
+/* =====================================================
+   FORMULARIOS
+===================================================== */
+
 .contenedor-formulario {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 20px;
-    background-color: #f1faee;
-    min-height: 70vh;
+    padding: 70px 20px;
+    background:
+        linear-gradient(
+            135deg,
+            #eaf4ff,
+            #f7fbff
+        );
+    min-height: 75vh;
 }
 
 .caja-registro {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: white;
+    padding: 42px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(13, 71, 161, 0.13);
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
 }
 
+.caja-registro h1,
 .caja-registro h2 {
-    color: #1d3557;
+    color: #0d47a1;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 30px;
 }
 
 .caja-registro > p {
     text-align: center;
-    color: #666;
+    color: #68798a;
     margin-bottom: 30px;
 }
 
@@ -248,33 +593,65 @@ footer {
 }
 
 .grupo-input label {
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 8px;
-    color: #333;
+    color: #26384a;
 }
 
-.grupo-input input, .grupo-input select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+.grupo-input input,
+.grupo-input select {
+    padding: 13px 14px;
+    border: 1px solid #ccd8e5;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background: #fbfdff;
+    transition: 0.3s;
+}
+
+.grupo-input input:focus,
+.grupo-input select:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.10);
+    background: white;
 }
 
 .btn-formulario {
     width: 100%;
     padding: 15px;
-    background-color: #e63946;
+    background: #0d47a1;
     color: white;
     border: none;
-    border-radius: 4px;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 800;
     cursor: pointer;
     margin-top: 10px;
+    transition: 0.3s;
 }
 
 .btn-formulario:hover {
-    background-color: #c1121f;
+    background: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 15px rgba(13, 71, 161, 0.25);
+}
+
+.texto-formulario {
+    text-align: center;
+    margin-top: 22px;
+    color: #68798a;
+}
+
+.texto-formulario a,
+.enlace-alternativo a {
+    color: #0d47a1;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.texto-formulario a:hover,
+.enlace-alternativo a:hover {
+    text-decoration: underline;
 }
 
 .enlace-alternativo {
@@ -283,16 +660,256 @@ footer {
     font-size: 14px;
 }
 
-.enlace-alternativo a {
-    color: #457b9d;
-    font-weight: bold;
-    text-decoration: none;
+
+/* =====================================================
+   MENSAJES DE ERROR
+===================================================== */
+
+.mensaje-error {
+    color: #d62828;
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+    font-weight: 600;
 }
 
-/* Estilos para los mensajes de error de JS */
-.mensaje-error {
-    color: #e63946;
-    font-size: 13px;
-    margin-top: 5px;
-    display: block; /* Se ocultan por defecto, el JS de Pablo los mostrará */
+
+/* =====================================================
+   ADMINISTRADOR
+===================================================== */
+
+.tabla-admin {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 7px 25px rgba(13, 71, 161, 0.10);
+}
+
+.tabla-admin th,
+.tabla-admin td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5edf5;
+}
+
+.tabla-admin th {
+    background: #0d47a1;
+    color: white;
+    font-weight: 700;
+}
+
+.tabla-admin tr:hover {
+    background: #f2f8ff;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 45px 6%;
+    background: #071d3a;
+    color: white;
+}
+
+footer h3 {
+    color: white;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+footer p {
+    color: #b9cce0;
+    margin-bottom: 7px;
+}
+
+footer a {
+    color: #cfe5ff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.newsletter {
+    display: flex;
+    align-items: center;
+}
+
+.newsletter input {
+    padding: 11px 13px;
+    border-radius: 7px;
+    border: none;
+    margin-right: 8px;
+    outline: none;
+}
+
+.newsletter button {
+    padding: 11px 17px;
+    background: #1565c0;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.newsletter button:hover {
+    background: #1976d2;
+}
+
+.copyright {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 25px;
+    margin-top: 15px;
+}
+
+
+/* =====================================================
+   RESPONSIVE - TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    header {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .grilla-productos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .productos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nosotros-contenido {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE - CELULAR
+===================================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 15px 20px;
+        justify-content: center;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    nav {
+        gap: 3px;
+    }
+
+    nav a {
+        font-size: 13px;
+        padding: 7px;
+    }
+
+    .acciones {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .banner-principal {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 25px;
+    }
+
+    .texto-banner,
+    .imagen-banner {
+        width: 100%;
+    }
+
+    .texto-banner h2 {
+        font-size: 35px;
+    }
+
+    .texto-banner p {
+        font-size: 16px;
+    }
+
+    .grilla-productos {
+        grid-template-columns: 1fr;
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-pagina h1 {
+        font-size: 32px;
+    }
+
+    .nosotros-hero {
+        grid-template-columns: 1fr;
+        padding: 28px;
+        margin: 30px auto;
+    }
+
+    .nosotros-hero h1 {
+        font-size: 32px;
+    }
+
+    .nosotros-hero img {
+        height: 250px;
+    }
+
+    .nosotros-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .video iframe {
+        height: 280px;
+    }
+
+    .caja-registro {
+        padding: 28px 22px;
+    }
+
+    footer {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .newsletter {
+        width: 100%;
+        justify-content: center;
+    }
+
 }
