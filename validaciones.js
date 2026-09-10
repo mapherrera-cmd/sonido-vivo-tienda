@@ -42,40 +42,44 @@ const comunas = {
 
 // REGIÓN → COMUNA
 
-region.addEventListener("change", function() {
+if (region) {
 
-    comuna.innerHTML = "";
+    region.addEventListener("change", function() {
 
-    const regionSeleccionada = region.value;
+        comuna.innerHTML = "";
 
-    if (regionSeleccionada === "") {
+        const regionSeleccionada = region.value;
 
-        const opcion = document.createElement("option");
+        if (regionSeleccionada === "") {
 
-        opcion.value = "";
+            const opcion = document.createElement("option");
 
-        opcion.textContent = "-- Selecciona primero una Región --";
+            opcion.value = "";
 
-        comuna.appendChild(opcion);
+            opcion.textContent = "-- Selecciona primero una Región --";
 
-        return;
-    }
+            comuna.appendChild(opcion);
 
-    const listaComunas = comunas[regionSeleccionada];
+            return;
+        }
 
-    listaComunas.forEach(function(nombreComuna) {
+        const listaComunas = comunas[regionSeleccionada];
 
-        const opcion = document.createElement("option");
+        listaComunas.forEach(function(nombreComuna) {
 
-        opcion.value = nombreComuna;
+            const opcion = document.createElement("option");
 
-        opcion.textContent = nombreComuna;
+            opcion.value = nombreComuna;
 
-        comuna.appendChild(opcion);
+            opcion.textContent = nombreComuna;
+
+            comuna.appendChild(opcion);
+
+        });
 
     });
 
-});
+}
 
 
 // EVENTO DE ENVÍO DEL FORMULARIO
@@ -114,102 +118,213 @@ if (formulario) {
         }
 
 
-    // VALIDAR CORREO
+        // VALIDAR CORREO
 
-    const valorCorreo = correo.value.trim();
+        const valorCorreo = correo.value.trim();
 
-    if (valorCorreo === "") {
+        if (valorCorreo === "") {
 
-        errorCorreo.textContent = "El correo es obligatorio.";
+            errorCorreo.textContent = "El correo es obligatorio.";
 
-        formularioValido = false;
+            formularioValido = false;
 
-    } else if (!/^[^\s@]+@(gmail\.com|duoc\.cl)$/.test(valorCorreo)) {
+        } else if (!/^[^\s@]+@(gmail\.com|duoc\.cl)$/.test(valorCorreo)) {
 
-        errorCorreo.textContent = "Solo se permiten correos @gmail.com o @duoc.cl.";
+            errorCorreo.textContent = "Solo se permiten correos @gmail.com o @duoc.cl.";
 
-        formularioValido = false;
+            formularioValido = false;
 
-    } else {
+        } else {
 
-        errorCorreo.textContent = "";
+            errorCorreo.textContent = "";
 
-    }
-
-
-    // VALIDAR CONTRASEÑA
-
-    const valorPassword = password.value;
-
-    if (valorPassword === "") {
-
-        errorPassword.textContent = "La contraseña es obligatoria.";
-
-        formularioValido = false;
-
-    } else if (valorPassword.length < 4 || valorPassword.length > 10) {
-
-        errorPassword.textContent = "La contraseña debe tener entre 4 y 10 caracteres.";
-
-        formularioValido = false;
-
-    } else {
-
-        errorPassword.textContent = "";
-
-    }
+        }
 
 
-    // VALIDAR REGIÓN
+        // VALIDAR CONTRASEÑA
 
-    if (region.value === "") {
+        const valorPassword = password.value;
 
-        formularioValido = false;
+        if (valorPassword === "") {
 
-    }
+            errorPassword.textContent = "La contraseña es obligatoria.";
+
+            formularioValido = false;
+
+        } else if (valorPassword.length < 4 || valorPassword.length > 10) {
+
+            errorPassword.textContent = "La contraseña debe tener entre 4 y 10 caracteres.";
+
+            formularioValido = false;
+
+        } else {
+
+            errorPassword.textContent = "";
+
+        }
 
 
-    // VALIDAR COMUNA
+        // VALIDAR REGIÓN
 
-    if (comuna.value === "") {
+        if (region.value === "") {
 
-        formularioValido = false;
+            formularioValido = false;
 
-    }
+        }
 
 
-    // RESULTADO
+        // VALIDAR COMUNA
 
-    if (formularioValido) {
+        if (comuna.value === "") {
 
-        alert("Registro válido. Formulario enviado correctamente.");
+            formularioValido = false;
 
-        formulario.reset();
+        }
 
-        comuna.innerHTML = "";
 
-        const opcion = document.createElement("option");
+        // RESULTADO
 
-        opcion.value = "";
+        if (formularioValido) {
 
-        opcion.textContent = "-- Selecciona primero una Región --";
+            alert("Registro válido. Formulario enviado correctamente.");
 
-        comuna.appendChild(opcion);
+            formulario.reset();
 
-    }
-    //CARRITO - LOCALSTORAGE
+            comuna.innerHTML = "";
 
-    const botonesCarrito = document.querySelectorAll(".btn-agregar");
+            const opcion = document.createElement("option");
 
-    botonesCarrito.forEach(function(boton){
+            opcion.value = "";
 
-            const nombre = boton.dataset-nombre;
-            const precio = Number(boton.dataset.precio);
+            opcion.textContent = "-- Selecciona primero una Región --";
 
-            console.log("Producto:", nombre);
-            console.log("Precio:", precio);
+            comuna.appendChild(opcion);
+
+        }
+
+    });
+
+}
+
+
+// CARRITO - PRUEBA
+
+// CARRITO - LOCALSTORAGE
+
+const botonesCarrito = document.querySelectorAll(".btn-agregar");
+
+botonesCarrito.forEach(function(boton) {
+
+    boton.addEventListener("click", function() {
+
+        const nombre = boton.dataset.nombre;
+
+        const precio = Number(boton.dataset.precio);
+
+
+        // Obtener carrito existente
+
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+
+        // Crear producto
+
+        const producto = {
+            nombre: nombre,
+            precio: precio,
+            cantidad: 1
+        };
+
+
+        // Agregar producto al carrito
+
+        carrito.push(producto);
+
+
+        // Guardar carrito en LocalStorage
+
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+
+        console.log("Producto agregado:", producto);
+
+        console.log("Carrito:", carrito);
+
+        alert("Producto agregado al carrito.");
 
     });
 
 });
+
+
+// MOSTRAR CARRITO
+
+const cuerpoCarrito = document.getElementById("cuerpo-carrito");
+
+const totalCarrito = document.getElementById("total-carrito");
+
+
+if (cuerpoCarrito) {
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    let total = 0;
+
+
+    carrito.forEach(function(producto) {
+
+        const fila = document.createElement("tr");
+
+        const subtotal = producto.precio * producto.cantidad;
+
+        total = total + subtotal;
+
+
+        fila.innerHTML = `
+            <td>${producto.nombre}</td>
+            <td>$${producto.precio.toLocaleString("es-CL")}</td>
+            <td>${producto.cantidad}</td>
+            <td>$${subtotal.toLocaleString("es-CL")}</td>
+            <td>
+                <button class="btn-quitar">
+                    Quitar
+                </button>
+            </td>
+        `;
+
+
+        cuerpoCarrito.appendChild(fila);
+
+        fila.querySelector(".btn-quitar").addEventListener("click", function() {
+
+            carrito.splice(carrito.indexOf(producto), 1);
+
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+
+            location.reload();
+
+});
+
+    // CONTADOR DEL CARRITO
+
+const contadorCarrito = document.getElementById("contador-carrito");
+
+if (contadorCarrito) {
+
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    contadorCarrito.textContent = `🛒 Carrito (${carrito.length})`;
+
 }
+
+    });
+
+
+    totalCarrito.textContent = `Total: $${total.toLocaleString("es-CL")}`;
+
+}
+
+
+// PRUEBA DE CARGA DEL JAVASCRIPT
+
+console.log("VALIDACIONES.JS CARGADO EN ESTA PÁGINA");
