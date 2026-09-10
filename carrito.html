@@ -18,9 +18,9 @@
             <a href="productos.html">Productos</a>
             <a href="nosotros.html">Nosotros</a>
             <a href="contacto.html">Contacto</a>
-            <a href="carrito.html" id="contador-carrito">Carrito (0)</a>
+            <a href="carrito.html">🛒 Carrito (<span id="contador-carrito">0</span>)</a>
         </nav>
-        <div class="acceso-usuarios">
+        <div class="acceso-usuarios" id="zona-login">
             <a href="login.html">Iniciar sesión</a> | 
             <a href="registro.html">Registrar usuario</a>
         </div>
@@ -29,7 +29,7 @@
     <!-- MAIN: Detalle del Carrito -->
     <main style="padding: 40px; min-height: 60vh;">
         <h2 style="margin-bottom: 20px; color: #1d3557;">Tu Carrito de Compras</h2>
-        
+
         <table class="tabla-admin" id="tabla-carrito">
             <thead>
                 <tr>
@@ -40,13 +40,14 @@
                     <th>Acción</th>
                 </tr>
             </thead>
-            <tbody id="cuerpo-carrito"> 
+            <tbody id="cuerpo-carrito">
+                <!-- Se llena automáticamente con JavaScript -->
             </tbody>
         </table>
 
         <div style="text-align: right; margin-top: 20px;">
-            <h3 id="total-carrito" style="margin-bottom: 15px;">Total: $0</h3>
-            <button style="padding: 15px 30px; background-color: #2a9d8f; color: white; border: none; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 5px;">Proceder al Pago</button>
+            <h3 style="margin-bottom: 15px;">Total: <span id="carrito-total">$0</span></h3>
+            <button onclick="irAPagar()" style="padding: 15px 30px; background-color: #2a9d8f; color: white; border: none; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 5px;">Proceder al Pago</button>
         </div>
     </main>
 
@@ -58,6 +59,6 @@
     </footer>
 
     <script src="validaciones.js"></script>
-
+    <script src="sesion.js"></script>
 </body>
 </html>

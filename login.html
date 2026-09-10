@@ -1,63 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Sonido Vivo</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar Sesión | Sonido Vivo</title>
+
     <link rel="stylesheet" href="estilos.css">
+
 </head>
+
+
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo">
-            <h1>Sonido Vivo</h1>
-        </div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="productos.html">Productos</a>
-            <a href="nosotros.html">Nosotros</a>
-            <a href="contacto.html">Contacto</a>
-            <a href="carrito.html">🛒 Carrito (0)</a>
-        </nav>
-        <div class="acceso-usuarios">
-            <a href="login.html">Iniciar sesión</a> | 
-            <a href="registro.html">Registrar usuario</a>
-        </div>
-    </header>
 
-    <!-- MAIN: Formulario de Login -->
-    <main class="contenedor-formulario">
-        <section class="caja-registro">
-            <h2>Iniciar Sesión</h2>
-            <p>Ingresa a tu cuenta de Sonido Vivo</p>
-            
-            <form id="form-login" action="#" method="POST">
-                
+<header>
+
+    <div class="logo">
+        🎵 Sonido Vivo
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">Inicio</a>
+
+        <a href="productos.html">Productos</a>
+
+        <a href="nosotros.html">Nosotros</a>
+
+        <a href="blogs.html">Blog</a>
+
+        <a href="contacto.html">Contacto</a>
+
+        <a href="carrito.html">🛒 Carrito</a>
+
+    </nav>
+
+
+    <div class="acciones">
+
+        <a href="login.html">Iniciar sesión</a>
+
+        <a href="registro.html">Registrarse</a>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+    <section class="contenedor-formulario">
+
+        <div class="caja-registro">
+
+            <h1>Iniciar Sesión</h1>
+
+            <p>
+                Ingresa a tu cuenta de Sonido Vivo
+            </p>
+
+
+            <form id="form-login">
+
                 <div class="grupo-input">
-                    <label for="login-correo">Correo Electrónico:</label>
-                    <input type="email" id="login-correo" placeholder="ejemplo@gmail.com" required>
-                    <span id="error-login-correo" class="mensaje-error"></span>
+
+                    <label for="login-correo">
+                        Correo electrónico
+                    </label>
+
+                    <input
+                        type="email"
+                        id="login-correo"
+                        placeholder="ejemplo@gmail.com"
+                        required
+                    >
+
+                    <span
+                        id="error-login-correo"
+                        class="mensaje-error">
+                    </span>
+
                 </div>
 
+
                 <div class="grupo-input">
-                    <label for="login-password">Contraseña:</label>
-                    <input type="password" id="login-password" required>
-                    <span id="error-login-password" class="mensaje-error"></span>
+
+                    <label for="login-password">
+                        Contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Ingresa tu contraseña"
+                        required
+                    >
+
+                    <span
+                        id="error-login-password"
+                        class="mensaje-error">
+                    </span>
+
                 </div>
 
-                <button type="submit" class="btn-formulario">Ingresar</button>
+
+                <button
+                    type="submit"
+                    class="btn-formulario">
+
+                    Iniciar Sesión
+
+                </button>
+
+
+                <p class="texto-formulario">
+
+                    ¿No tienes cuenta?
+
+                    <a href="registro.html">
+                        Regístrate aquí
+                    </a>
+
+                </p>
+
+
             </form>
-            <p class="enlace-alternativo">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
-        </section>
-    </main>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-info">
-            <p><strong>Sonido Vivo - Viña del Mar</strong></p>
         </div>
-    </footer>
+
+    </section>
+
+</main>
+
+
+
+<footer>
+
+    <div>
+
+        <h3>Sonido Vivo</h3>
+
+        <p>
+            Tu tienda online de instrumentos musicales.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Contacto</h3>
+
+        <p>Email: contacto@sonidovivo.cl</p>
+
+        <p>Chile</p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Enlaces</h3>
+
+        <a href="productos.html">Productos</a><br>
+
+        <a href="contacto.html">Contacto</a>
+
+    </div>
+
+
+    <p class="copyright">
+        © 2026 Sonido Vivo - Todos los derechos reservados
+    </p>
+
+</footer>
+
+
+
+<script src="validaciones.js"></script>
 
 </body>
+
 </html>
