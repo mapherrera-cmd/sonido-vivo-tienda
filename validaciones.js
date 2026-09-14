@@ -1,123 +1,223 @@
-// Esperamos a que todo el HTML cargue antes de ejecutar el JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     // ==========================================
-    // 1. LÓGICA DE REGIONES Y COMUNAS DINÁMICAS
+    // 1. ACTUALIZAR CONTADOR DEL NAVBAR
     // ==========================================
-    
-    // Objeto que guarda las regiones como "llaves" y sus comunas como "listas" (arreglos)
-    const regionesYComunas = {
-        valparaiso: ["Valparaíso", "Viña del Mar", "Quilpué", "Villa Alemana", "Concón", "Casablanca"],
-        metropolitana: ["Santiago", "Providencia", "Ñuñoa", "Maipú", "Puente Alto", "La Florida"]
-    };
+    function actualizarContadorCarrito() {
+        const enlacesCarrito = document.querySelectorAll('a[href="carrito.html"]');
+        let carritoActual = JSON.parse(localStorage.getItem("carritoSonidoVivo")) || [];
+        let totalArticulos = carritoActual.reduce((suma, item) => suma + item.cantidad, 0);
 
-    // Capturamos las cajas de selección (select) del HTML de Registro
-    const selectRegion = document.getElementById('region');
-    const selectComuna = document.getElementById('comuna');
+        enlacesCarrito.forEach(enlace => {
+            enlace.innerHTML = `🛒 Carrito (${totalArticulos})`;
+        });
+    }
 
-    // Si existen estos elementos en la página actual, ejecutamos el código
+    actualizarContadorCarrito();
+
+
+   // ==========================================
+    // 2. BOTONES "AÑADIR AL CARRITO" (productos.html)
+    // ==========================================
+    const botonesAgregar = document.querySelectorAll(".btn-agregar");
+
+    botonesAgregar.forEach(boton => {
+        // Usar onclick evita la duplicación si el script se carga más de una vez
+        boton.onclick = function (e) {
+            e.preventDefault();
+
+            // Ubicar contenedor del producto
+            const tarjeta = this.closest(".producto") || this.parentElement;
+
+            // Extraer Nombre
+            let nombre = "Instrumento Musical";
+            const tituloElem = tarjeta.querySelector("h2, h3, h4, .titulo, .nombre-producto");
+            if (tituloElem) {
+                nombre = tituloElem.innerText.trim();
+            }
+
+            // Extraer Precio
+            let precio = "$0";
+            const elementosTexto = tarjeta.querySelectorAll("h2, h3, h4, p, span, strong, b");
+            elementosTexto.forEach(el => {
+                if (el.innerText.includes("$")) {
+                    precio = el.innerText.trim();
+                }
+            });
+
+            // Guardar en LocalStorage
+            let carritoActual = JSON.parse(localStorage.getItem("carritoSonidoVivo")) || [];
+            const indiceExistente = carritoActual.findIndex(p => p.nombre === nombre);
+
+            if (indiceExistente !== -1) {
+                carritoActual[indiceExistente].cantidad += 1;
+            } else {
+                carritoActual.push({
+                    nombre: nombre,
+                    precio: precio,
+                    cantidad: 1
+                });
+            }
+
+            localStorage.setItem("carritoSonidoVivo", JSON.stringify(carritoActual));
+
+            actualizarContadorCarrito();
+            alert(`¡Agregado con éxito!\n"${nombre}" se añadió al carrito.`);
+        };
+    });
+
+    // ==========================================
+    // 3. TABLA Y TOTAL EN CARRITO (carrito.html)
+    // ==========================================
+    const cuerpoCarrito = document.getElementById("cuerpo-carrito");
+    const totalCarrito = document.getElementById("total-carrito");
+
+    if (cuerpoCarrito && totalCarrito) {
+        function renderizarCarrito() {
+            let carritoActual = JSON.parse(localStorage.getItem("carritoSonidoVivo")) || [];
+            cuerpoCarrito.innerHTML = "";
+            let sumaTotal = 0;
+
+            if (carritoActual.length === 0) {
+                cuerpoCarrito.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Tu carrito está vacío</td></tr>';
+                totalCarrito.innerText = "$0";
+                return;
+            }
+
+            carritoActual.forEach((producto, index) => {
+                let precioLimpio = producto.precio.replace(/[^0-9]/g, '');
+                let precioNumerico = parseInt(precioLimpio) || 0;
+                let subtotal = precioNumerico * producto.cantidad;
+                sumaTotal += subtotal;
+
+                const fila = document.createElement("tr");
+                fila.innerHTML = `
+                    <td>${producto.nombre}</td>
+                    <td>${producto.precio}</td>
+                    <td>${producto.cantidad}</td>
+                    <td>$${subtotal.toLocaleString('es-CL')}</td>
+                    <td>
+                        <button class="btn-eliminar-item" data-index="${index}" style="background:#e74c3c; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">
+                            Eliminar
+                        </button>
+                    </td>
+                `;
+                cuerpoCarrito.appendChild(fila);
+            });
+
+            totalCarrito.innerText = "$" + sumaTotal.toLocaleString('es-CL');
+
+            document.querySelectorAll(".btn-eliminar-item").forEach(boton => {
+                boton.addEventListener("click", function() {
+                    const indice = this.getAttribute("data-index");
+                    carritoActual.splice(indice, 1);
+                    localStorage.setItem("carritoSonidoVivo", JSON.stringify(carritoActual));
+                    renderizarCarrito();
+                    actualizarContadorCarrito();
+                });
+            });
+        }
+
+        renderizarCarrito();
+    }
+
+
+    // ==========================================
+    // 4. INICIO DE SESIÓN
+    // ==========================================
+    const formLogin = document.getElementById("form-login");
+    if (formLogin) {
+        formLogin.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const correo = document.getElementById("login-correo").value.trim().toLowerCase();
+            const pass = document.getElementById("login-pass").value.trim();
+
+            const dominiosValidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
+            const esCorreoValido = dominiosValidos.some(dominio => correo.endsWith(dominio));
+
+            if (!esCorreoValido) {
+                alert("Error: Solo se permiten correos institucionales (@duoc.cl, @profesor.duoc.cl) o Gmail (@gmail.com).");
+                return;
+            }
+
+            if (pass.length < 4 || pass.length > 10) {
+                alert("Error: La contraseña debe tener entre 4 y 10 caracteres.");
+                return;
+            }
+
+            if (correo.includes("admin") || correo.includes("profesor")) {
+                alert("¡Bienvenido Administrador!");
+                window.location.href = "admin-home.html";
+            } else {
+                alert("¡Inicio de sesión exitoso!");
+                window.location.href = "index.html";
+            }
+        });
+    }
+
+
+    // ==========================================
+    // 5. REGISTRO Y REGIONES / COMUNAS
+    // ==========================================
+    const formRegistro = document.getElementById("form-registro");
+    if (formRegistro) {
+        formRegistro.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const run = document.getElementById("reg-run").value.trim();
+            const correo = document.getElementById("correo").value.trim().toLowerCase();
+            const pass = document.getElementById("reg-pass").value.trim();
+            const passConfirm = document.getElementById("reg-pass-confirm").value.trim();
+
+            const regexRun = /^[0-9]{7,8}[0-9kK]{1}$/;
+            if (!regexRun.test(run)) {
+                alert("Error: Ingrese el RUN sin puntos ni guion (Ejemplo: 19011022K).");
+                return;
+            }
+
+            const dominiosValidos = ["@duoc.cl", "@profesor.duoc.cl", "@gmail.com"];
+            if (!dominiosValidos.some(dominio => correo.endsWith(dominio))) {
+                alert("Error: Regístrate con un correo @duoc.cl, @profesor.duoc.cl o @gmail.com.");
+                return;
+            }
+
+            if (pass.length < 4 || pass.length > 10) {
+                alert("Error: La contraseña debe tener entre 4 y 10 caracteres.");
+                return;
+            }
+
+            if (pass !== passConfirm) {
+                alert("Error: Las contraseñas no coinciden.");
+                return;
+            }
+
+            alert("¡Registro completado con éxito!");
+            window.location.href = "login.html";
+        });
+    }
+
+    const selectRegion = document.getElementById("reg-region");
+    const selectComuna = document.getElementById("reg-comuna");
+
     if (selectRegion && selectComuna) {
-        // Escuchamos cada vez que el usuario cambia la opción de Región
-        selectRegion.addEventListener('change', function() {
-            const regionSeleccionada = this.value;
-            
-            // Limpiamos las comunas anteriores
-            selectComuna.innerHTML = '<option value="">-- Selecciona una Comuna --</option>'; 
-            
-            // Si el usuario eligió una región válida, llenamos las comunas
-            if (regionSeleccionada && regionesYComunas[regionSeleccionada]) {
-                regionesYComunas[regionSeleccionada].forEach(function(comuna) {
-                    // Creamos una nueva etiqueta <option> por cada comuna
-                    const opcion = document.createElement('option');
-                    opcion.value = comuna.toLowerCase().replace(" ", "-");
-                    opcion.textContent = comuna;
-                    // La agregamos al selector de comunas
-                    selectComuna.appendChild(opcion);
+        const comunasPorRegion = {
+            "valparaiso": ["Viña del Mar", "Valparaíso", "Quilpué", "Concón"],
+            "metropolitana": ["Santiago", "Providencia", "Maipú", "Las Condes"],
+            "biobio": ["Concepción", "Talcahuano", "Chillán"]
+        };
+
+        selectRegion.addEventListener("change", function () {
+            const region = this.value;
+            selectComuna.innerHTML = '<option value="">-- Selecciona primero una Región --</option>';
+
+            if (comunasPorRegion[region]) {
+                comunasPorRegion[region].forEach(comuna => {
+                    const option = document.createElement("option");
+                    option.value = comuna.toLowerCase().replace(/ /g, "-");
+                    option.textContent = comuna;
+                    selectComuna.appendChild(option);
                 });
             }
         });
     }
-
-
-    // ==========================================
-    // 2. VALIDACIÓN DEL FORMULARIO DE REGISTRO
-    // ==========================================
-    const formRegistro = document.getElementById('form-registro');
-    
-    if (formRegistro) {
-        formRegistro.addEventListener('submit', function(evento) {
-            evento.preventDefault(); // Evita que la página se recargue al enviar el formulario
-            let formularioValido = true;
-
-            // A. Validar RUN (Sin puntos ni guion)
-            const runInput = document.getElementById('run').value;
-            const errorRun = document.getElementById('error-run');
-            // Expresión regular: Busca solo números del principio al fin (y puede terminar en K)
-            const formatoRun = /^[0-9]+[0-9kK]$/; 
-            
-            if (!formatoRun.test(runInput)) {
-                errorRun.textContent = "Error: El RUN debe ingresarse sin puntos ni guion.";
-                errorRun.style.display = "block"; // Muestra el mensaje rojo
-                formularioValido = false;
-            } else {
-                errorRun.style.display = "none"; // Oculta el mensaje si está correcto
-            }
-
-            // B. Validar Correo (@duoc.cl o @gmail.com)
-            const correoInput = document.getElementById('correo').value;
-            const errorCorreo = document.getElementById('error-correo');
-            
-            if (!correoInput.endsWith('@duoc.cl') && !correoInput.endsWith('@gmail.com')) {
-                errorCorreo.textContent = "Error: Solo se permiten correos @duoc.cl o @gmail.com";
-                errorCorreo.style.display = "block";
-                formularioValido = false;
-            } else {
-                errorCorreo.style.display = "none";
-            }
-
-            // C. Validar Contraseña (Segura: 4 a 10 caracteres)
-            const passInput = document.getElementById('password').value;
-            const errorPass = document.getElementById('error-password');
-            
-            if (passInput.length < 4 || passInput.length > 10) {
-                errorPass.textContent = "Error: La contraseña debe tener entre 4 y 10 caracteres.";
-                errorPass.style.display = "block";
-                formularioValido = false;
-            } else {
-                errorPass.style.display = "none";
-            }
-
-            // Si todo está correcto, mostramos éxito
-            if (formularioValido) {
-                alert("¡Registro exitoso! Bienvenido a Sonido Vivo.");
-                // Aquí el formulario se enviaría de verdad en un sistema con base de datos
-            }
-        });
-    }
-
-
-    // ==========================================
-    // 3. BASE DEL CARRITO DE COMPRAS (LocalStorage)
-    // ==========================================
-    // Esto captura todos los botones que dicen "Añadir al carrito" en el Home o Productos
-    const botonesAgregar = document.querySelectorAll('.btn-agregar');
-    
-    botonesAgregar.forEach(function(boton) {
-        boton.addEventListener('click', function() {
-            // Buscamos el nombre y precio del producto al que le hicimos clic
-            const producto = this.parentElement;
-            const titulo = producto.querySelector('h4').textContent;
-            
-            // Le avisamos al usuario
-            alert(titulo + " fue agregado al carrito.");
-            
-            // Guardamos en LocalStorage (La memoria del navegador)
-            let carritoGuardado = localStorage.getItem('carritoSonidoVivo');
-            let carritoArreglo = carritoGuardado ? JSON.parse(carritoGuardado) : [];
-            
-            carritoArreglo.push(titulo);
-            localStorage.setItem('carritoSonidoVivo', JSON.stringify(carritoArreglo));
-        });
-    });
 
 });
